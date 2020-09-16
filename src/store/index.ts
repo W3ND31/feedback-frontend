@@ -1,8 +1,15 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 import AuthReducer from "./auth/AuthReducer";
 import { AuthState } from "./auth/types";
+import persistReducers from "./persistReducers";
+
+
+export interface RootState {
+  AuthReducer: AuthState;
+}
 
 const appReducer = combineReducers({
   AuthReducer,
@@ -13,10 +20,8 @@ const rootReducer = (state: any, action: any) => {
 };
 const composeEnhancers = composeWithDevTools({});
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(persistReducers(rootReducer), composeEnhancers(applyMiddleware(thunk)));
 
-export interface RootState {
-  AuthReducer: AuthState;
-}
+const persister = persistStore(store);
 
-export { store };
+export { store, persister };

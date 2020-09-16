@@ -2,9 +2,11 @@ import { Button, Grid, Link, TextField, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { LoginAction } from "../../store/auth/AuthActions";
+import MuiStylesApp from "../../style/MuiStylesApp";
 
 const Login = (props: any) => {
   const dispatch = useDispatch();
+  const classes = MuiStylesApp();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,7 +24,7 @@ const Login = (props: any) => {
     if (event.key === "Enter") handleSubmit(null);
   };
   return (
-    <Grid container direction="column" alignItems="center" justify="center" style={{ height: "100%" }}>
+    <Grid className={classes.container} container direction="column" alignItems="center" justify="center">
       <Grid item>
         <Typography component="h1" variant="h5">
           Login

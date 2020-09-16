@@ -18,6 +18,7 @@ export const LoginAction = (login: Login): ThunkAction<void, RootState, unknown,
       });
     })
     .catch((err) => {
+      alert(err.response.data.message)
       dispatch({
         type: AUTH_ERROR,
         payload: {

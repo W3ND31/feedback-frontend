@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 import { Provider } from "react-redux";
@@ -9,7 +10,9 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={MuiThemeApp}>
-        <Routes />
+        <Container fixed>
+          <Routes />
+        </Container>
       </ThemeProvider>
     </Provider>
   );
