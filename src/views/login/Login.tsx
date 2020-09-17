@@ -1,7 +1,10 @@
 import { Button, Grid, Link, TextField, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
+import UserService from "../../services/UserService";
 import { LoginAction } from "../../store/auth/AuthActions";
+import { SnackbarOpen } from "../../store/snackbar/SnackbarActions";
 import MuiStylesApp from "../../style/MuiStylesApp";
 
 const Login = (props: any) => {
@@ -17,62 +20,81 @@ const Login = (props: any) => {
       return alert("Preencha os campos obrigatórios");
     }
 
-    dispatch(LoginAction({ username, password }));
+    !props.cadastrar && dispatch(LoginAction({ username, password }));
+
+    props.cadastrar &&
+      UserService.createUser({ username, password }).then((res) => {
+        if (res.status === 200) {
+          dispatch(SnackbarOpen({ severity: "success", message: "Cadastro efetuado com sucesso!" }));
+          props.history.push("/");
+        }
+      });
   };
 
   const handleKey = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") handleSubmit(null);
   };
   return (
-    <Grid className={classes.container} container direction="column" alignItems="center" justify="center">
+    <Grid className={classes.container} container direction="column" alignItems="center" justify="center" spacing={2}>
       <Grid item>
         <Typography component="h1" variant="h5">
-          Login
+          {props.cadastrar ? "Cadastre-se" : "Login"}
         </Typography>
       </Grid>
       <Grid item>
         <form noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Usuário"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            value={username}
-            onChange={(event: any) => setUsername(event.target.value)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Senha"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onKeyPress={handleKey}
-            onChange={(event: any) => setPassword(event.target.value)}
-          />
-          <Button onClick={(e: React.FormEvent) => handleSubmit(e)} fullWidth variant="contained" color="primary">
-            Entrar
-          </Button>
-          <Grid container direction="row" justify="flex-end">
+          <Grid container direction="column" spacing={2}>
             <Grid item>
-              <Link href="/" variant="body2">
-                {"Não tem uma conta?! Registre-se"}
-              </Link>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Usuário"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={username}
+                onChange={(event: any) => setUsername(event.target.value)}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Senha"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onKeyPress={handleKey}
+                onChange={(event: any) => setPassword(event.target.value)}
+              />
+            </Grid>
+            <Grid item>
+              <Button onClick={(e: React.FormEvent) => handleSubmit(e)} fullWidth variant="contained" color="primary">
+                {props.cadastrar ? "Salvar" : "Entrar"}
+              </Button>
             </Grid>
           </Grid>
+
+          {!props.cadastrar && (
+            <Grid container direction="row" justify="flex-end">
+              <Grid item>
+                <Link href="/cadastrar" variant="body2">
+                  {"Não tem uma conta?! Registre-se"}
+                </Link>
+              </Grid>
+            </Grid>
+          )}
         </form>
       </Grid>
     </Grid>
   );
 };
 
-export default Login;
+export default withRouter(Login);

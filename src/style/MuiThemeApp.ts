@@ -13,9 +13,10 @@ const MuiThemeApp = createMuiTheme({
   },
   spacing: (factor) => `${0.585651537 * factor}vw`,
   overrides: {
-    MuiContainer: {
-      root: {
-        height: "100%",
+    MuiFormControl: {
+      marginNormal: {
+        marginTop: "0px",
+        marginBottom: "0px",
       },
     },
   },
