@@ -31,6 +31,9 @@ const MuiStylesApp = makeStyles((theme) => ({
   sessionDesktop: {
     display: "flex",
   },
+  dataTable: {
+    marginTop: theme.spacing(3),
+  },
 }));
 
 export default MuiStylesApp;

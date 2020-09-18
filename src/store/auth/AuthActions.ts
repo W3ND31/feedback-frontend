@@ -2,6 +2,7 @@ import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "..";
 import AuthService from "../../services/AuthService";
+import { SnackbarOpen } from "../snackbar/SnackbarActions";
 import { AuthActionTypes, AUTH_ERROR, AUTH_LOGOUT, AUTH_SUCCESS, Login } from "./types";
 
 export const LoginAction = (login: Login): ThunkAction<void, RootState, unknown, Action<string>> => (dispatch) => {
@@ -14,9 +15,10 @@ export const LoginAction = (login: Login): ThunkAction<void, RootState, unknown,
           loading: false,
         },
       });
+      dispatch(SnackbarOpen({ severity: "success", message: "Login efetuado com sucesso" }));
     })
     .catch((err) => {
-      alert(err.response.data.message);
+      dispatch(SnackbarOpen({ severity: "error", message: err.response.data.message }));
       dispatch({
         type: AUTH_ERROR,
         payload: {

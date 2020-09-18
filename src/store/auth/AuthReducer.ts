@@ -1,7 +1,9 @@
 import { AuthActionTypes, AuthState, AUTH_ERROR, AUTH_LOGIN_START, AUTH_LOGOUT, AUTH_SUCCESS } from "./types";
 
 const INITIAL_STATE: AuthState = {
-  username: "",
+  user: {
+    username: "",
+  },
   authenticated: false,
   loading: false,
   message: "",
@@ -21,11 +23,7 @@ const AuthReducer = (state = INITIAL_STATE, action: AuthActionTypes): AuthState 
       };
     case AUTH_LOGOUT:
       return {
-        ...state,
-        username: "",
-        authenticated: false,
-        loading: false,
-        message: "",
+        ...INITIAL_STATE,
       };
     default:
       return state;

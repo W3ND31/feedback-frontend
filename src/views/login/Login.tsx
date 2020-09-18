@@ -35,7 +35,7 @@ const Login = (props: any) => {
     if (event.key === "Enter") handleSubmit(null);
   };
   return (
-    <Grid className={classes.container} container direction="column" alignItems="center" justify="center" spacing={2}>
+    <Grid className={classes.container} container direction="column" alignItems="center" justify="center">
       <Grid item>
         <Typography component="h1" variant="h5">
           {props.cadastrar ? "Cadastre-se" : "Login"}

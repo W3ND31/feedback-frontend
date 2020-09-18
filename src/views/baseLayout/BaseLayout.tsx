@@ -53,7 +53,6 @@ const BaseLayout = (props: any) => {
   };
 
   const handleProfileMenuOpen = (event: any) => {
-    console.log(event);
     setMenuAnchor(event.currentTarget);
   };
 
@@ -71,7 +70,7 @@ const BaseLayout = (props: any) => {
       <List>
         {[
           { text: "Cadastro de Feedback", route: "/" },
-          { text: "Feedbacks", route: "/feedbacks" },
+          { text: "Lista de Feedbacks", route: "/feedback/list" },
         ].map((item, index) => (
           <ListItem button key={item.text} onClick={() => history.push(item.route)}>
             <ListItemText primary={item.text} />

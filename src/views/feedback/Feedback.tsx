@@ -4,18 +4,17 @@ import { withRouter } from "react-router-dom";
 import ArrowBack from "../../components/arrowBack/ArrowBack";
 import FeedbackForm from "../../components/feedbackForm/FeedbackForm";
 import MuiStylesApp from "../../style/MuiStylesApp";
-
-const Home = (props: any) => {
+const Feedback = (props: any) => {
   const classes = MuiStylesApp();
 
   return (
     <Grid container direction="column" justify="flex-start" id="containerHome">
       <Grid item className={classes.gridTitle}>
-        <ArrowBack title="Cadastro de Feedbacks" />
+        <ArrowBack title="Detalhes do Feedback" />
       </Grid>
-      <FeedbackForm />
+      <FeedbackForm update={true} />
     </Grid>
   );
 };
 
-export default withRouter(Home);
+export default withRouter(Feedback);

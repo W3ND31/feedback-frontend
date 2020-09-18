@@ -1,4 +1,3 @@
-
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_ERROR = "AUTH_ERROR";
@@ -14,7 +13,7 @@ export interface LoginPayload {
 }
 
 export interface AuthState {
-  username: string;
+  user: LoginPayload;
   authenticated: boolean;
   loading: boolean;
   message: string;

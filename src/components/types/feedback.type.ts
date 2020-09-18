@@ -1,5 +1,5 @@
 interface Feedback {
-  username: string;
+  subject: string;
   creator: string;
   feedbackDate: Date;
   improvePoints: string;
